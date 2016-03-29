@@ -1,0 +1,7 @@
+
+
+#pcf file
+
+set_io LED0 B5
+
+
