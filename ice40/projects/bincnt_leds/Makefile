@@ -3,12 +3,12 @@ TITLE = bincnt_leds
 
 all: $(TITLE).bin
 
-%.bin: $(TITLE).v $(TITLE).pcf
-	yosys -q -p "synth_ice40 -blif $(TITLE).blif" $(TITLE).v
-	arachne-pnr $(ARACHNE_PNR_OPT) -p $(TITLE).pcf $(TITLE).blif -o $(TITLE).txt
-	icebox_explain $(TITLE).txt > $(TITLE).ex
-	icepack $(TITLE).txt $(TITLE).bin
+%.bin: %.v %.pcf
+	yosys -q -p "synth_ice40 -blif $*.blif" $*.v
+	arachne-pnr $(ARACHNE_PNR_OPT) -p $*.pcf $*.blif -o $*.bit
+	icebox_explain $*.bit > $*.ex
+	icepack $*.bit $@
 
 clean:
-	rm -f $(TITLE).blif $(TITLE).txt $(TITLE).ex $(TITLE).bin
+	rm -f  *.blif *.bit *.ex *.bin
 
